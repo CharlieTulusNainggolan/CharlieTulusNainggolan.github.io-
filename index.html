@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Charlie Tulus Nainggolan — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0A0A0F;
+    --bg2: #111118;
+    --bg3: #18181F;
+    --accent: #6C63FF;
+    --accent2: #A78BFA;
+    --green: #00D4A0;
+    --text: #F0EEF8;
+    --muted: #8A88A0;
+    --border: rgba(255,255,255,0.08);
+    --card-bg: #13131A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .grid-bg {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(108,99,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108,99,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(10,10,15,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px; color: var(--accent2);
+    letter-spacing: 0.05em; text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 13px; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  main { position: relative; z-index: 1; }
+
+  section { padding: 5rem 2.5rem; max-width: 980px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; padding-top: 80px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--green);
+    letter-spacing: 0.15em; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--green);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 700; line-height: 1.05;
+    letter-spacing: -0.03em; margin-bottom: 1rem;
+  }
+  .hero h1 .name-accent {
+    background: linear-gradient(135deg, #6C63FF 0%, #A78BFA 50%, #00D4A0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 540px; margin-bottom: 2.5rem; line-height: 1.8;
+  }
+  .hero-sub strong { color: var(--text); font-weight: 500; }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    padding: 0.75rem 2rem; border-radius: 8px;
+    background: var(--accent); color: white;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px; font-weight: 500;
+    border: none; cursor: pointer; letter-spacing: 0.03em;
+    text-decoration: none; display: inline-block;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(108,99,255,0.35);
+  }
+
+  .btn-outline {
+    padding: 0.75rem 2rem; border-radius: 8px;
+    background: transparent; color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 14px; font-weight: 500;
+    border: 1px solid var(--border); cursor: pointer;
+    letter-spacing: 0.03em; text-decoration: none; display: inline-block;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    background: rgba(108,99,255,0.08);
+  }
+
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 2rem; border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat-num {
+    font-size: 2rem; font-weight: 700;
+    color: var(--accent2); display: block;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 12px; color: var(--muted); letter-spacing: 0.05em;
+  }
+
+  /* ── SECTION TITLES ── */
+  .section-title {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 3rem;
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent); letter-spacing: 0.1em;
+  }
+  .section-title h2 {
+    font-size: 1.8rem; font-weight: 600; letter-spacing: -0.02em;
+  }
+  .section-title::after {
+    content: ''; flex: 1; height: 1px; background: var(--border);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: start;
+  }
+  .about-text p {
+    color: var(--muted); margin-bottom: 1rem;
+    font-size: 0.95rem; line-height: 1.8;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .about-info-row {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .about-info-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+    min-width: 80px; padding-top: 2px;
+  }
+  .about-info-val { font-size: 13px; color: var(--text); }
+
+  .cert-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .cert-item {
+    padding: 1rem 1.25rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    border-left: 3px solid var(--green);
+  }
+  .cert-org {
+    font-size: 10px; color: var(--green);
+    letter-spacing: 0.1em; font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 4px;
+  }
+  .cert-name { font-size: 13px; color: var(--text); font-weight: 500; }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem;
+  }
+  .skill-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card:hover {
+    border-color: rgba(108,99,255,0.3);
+    transform: translateY(-3px);
+  }
+  .skill-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .skill-card h3 {
+    font-size: 11px; font-weight: 600;
+    color: var(--accent2); margin-bottom: 0.75rem;
+    letter-spacing: 0.06em;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    font-size: 11px; padding: 3px 9px;
+    background: rgba(108,99,255,0.12); color: var(--accent2);
+    border-radius: 20px; font-family: 'JetBrains Mono', monospace;
+  }
+  .tag.green { background: rgba(0,212,160,0.1); color: var(--green); }
+  .tag.purple { background: rgba(167,139,250,0.12); color: var(--accent2); }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+  .project-card {
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
+    transition: border-color 0.25s, transform 0.25s;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .project-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--green));
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .project-card:hover { border-color: rgba(108,99,255,0.3); transform: translateY(-4px); }
+  .project-card:hover::before { opacity: 1; }
+  .project-card.featured { grid-column: 1 / -1; }
+  .project-card.featured::before { opacity: 1; }
+
+  .proj-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between; margin-bottom: 0.75rem;
+  }
+  .proj-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--accent);
+  }
+  .proj-badge {
+    font-size: 10px; padding: 3px 10px;
+    background: rgba(0,212,160,0.1); color: var(--green);
+    border-radius: 20px; letter-spacing: 0.05em;
+  }
+  .project-card h3 {
+    font-size: 1.05rem; font-weight: 600;
+    margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  .project-card p {
+    font-size: 13px; color: var(--muted);
+    line-height: 1.7; margin-bottom: 1.25rem; flex: 1;
+  }
+  .project-footer {
+    display: flex; flex-direction: column; gap: 1rem; margin-top: auto;
+  }
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tech {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; padding: 3px 8px;
+    background: var(--bg3); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 4px;
+  }
+  .project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .proj-link {
+    font-size: 12px; padding: 6px 14px;
+    border-radius: 6px; text-decoration: none;
+    font-weight: 500; letter-spacing: 0.03em;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .proj-link.github {
+    background: rgba(108,99,255,0.15); color: var(--accent2);
+    border: 1px solid rgba(108,99,255,0.25);
+  }
+  .proj-link.github:hover {
+    background: rgba(108,99,255,0.25);
+    transform: translateY(-1px);
+  }
+  .proj-link.gitlab {
+    background: rgba(252,109,38,0.12); color: #FC6D26;
+    border: 1px solid rgba(252,109,38,0.25);
+  }
+  .proj-link.gitlab:hover {
+    background: rgba(252,109,38,0.22);
+    transform: translateY(-1px);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-item {
+    display: flex; gap: 2rem;
+    padding: 2rem 0; border-bottom: 1px solid var(--border);
+  }
+  .exp-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--muted);
+    min-width: 140px; padding-top: 4px; letter-spacing: 0.05em;
+  }
+  .exp-content h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 4px; }
+  .exp-org { font-size: 13px; color: var(--accent2); margin-bottom: 0.75rem; }
+  .exp-content ul { list-style: none; padding: 0; }
+  .exp-content ul li {
+    font-size: 13px; color: var(--muted);
+    padding: 4px 0; padding-left: 1.25rem;
+    position: relative; line-height: 1.6;
+  }
+  .exp-content ul li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 11px; top: 6px;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; align-items: center;
+  }
+  .contact-left h2 {
+    font-size: 2.5rem; font-weight: 700;
+    letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 1rem;
+  }
+  .contact-left p { color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+
+  .status-badge {
+    margin-top: 1.5rem; padding: 1rem 1.25rem;
+    background: rgba(0,212,160,0.06);
+    border: 1px solid rgba(0,212,160,0.2);
+    border-radius: 10px;
+  }
+  .status-badge p:first-child {
+    font-size: 11px; color: var(--green);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em; margin-bottom: 4px;
+  }
+  .status-badge p:last-child { font-size: 14px; color: var(--text); }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--card-bg); border: 1px solid var(--border);
+    border-radius: 10px; text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 38px; height: 38px;
+    background: rgba(108,99,255,0.15); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center; font-size: 17px;
+  }
+  .contact-link-text strong { display: block; font-size: 14px; color: var(--text); }
+  .contact-link-text span {
+    font-size: 12px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .divider { height: 1px; background: var(--border); max-width: 980px; margin: 0 auto; }
+
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.05em; position: relative; z-index: 1;
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 4rem 1.25rem; }
+    .about-grid, .skills-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-column: 1; }
+    .hero-stats { gap: 1.5rem; }
+    .exp-item { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<nav>
+  <span class="nav-logo">charlie.dev</span>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="hero">
+    <div class="hero-eyebrow">open to internship — sistem informasi, semester 6</div>
+    <h1>
+      Charlie Tulus<br>
+      <span class="name-accent">Nainggolan</span>
+    </h1>
+    <p class="hero-sub">
+      Mahasiswa <strong>S1 Sistem Informasi</strong> Universitas Merdeka Malang dengan IPK 3.8/4.0.
+      Fokus pada <strong>System & Business Analysis</strong>, <strong>Data Analysis</strong>,
+      dan pengembangan solusi digital yang berdampak nyata.
+    </p>
+    <div class="hero-cta">
+      <a class="btn-primary" href="#projects">Lihat Proyek</a>
+      <a class="btn-outline" href="#contact">Hubungi Saya</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">3.8</span>
+        <span class="stat-label">IPK / 4.0</span>
+      </div>
+      <div>
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Proyek Selesai</span>
+      </div>
+      <div>
+        <span class="stat-num">3</span>
+        <span class="stat-label">Sertifikasi NVIDIA</span>
+      </div>
+      <div>
+        <span class="stat-num">Sem. 6</span>
+        <span class="stat-label">Aktif Kuliah</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ABOUT ══ -->
+  <section id="about">
+    <div class="section-title">
+      <span class="section-num">01</span>
+      <h2>Tentang Saya</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Saya adalah mahasiswa <strong>S1 Sistem Informasi</strong> — Jurusan Teknologi Informasi di Universitas Merdeka Malang, dengan spesialisasi <strong>Data Analyst</strong>.</p>
+        <p>Passion saya ada di persimpangan antara teknologi dan problem-solving bisnis — dari analisis kebutuhan pengguna, perancangan arsitektur sistem, hingga membangun antarmuka yang intuitif.</p>
+        <p>Terbiasa memanfaatkan <strong>AI-assisted development</strong> dan arsitektur <strong>microservices</strong> untuk membangun solusi yang skalabel. Di luar akademik, saya memimpin Komisi I DPM — mengasah kemampuan koordinasi, komunikasi strategis, dan pengambilan keputusan.</p>
+
+        <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
+          <div class="about-info-row">
+            <span class="about-info-label">UNIVERSITAS</span>
+            <span class="about-info-val">Universitas Merdeka Malang</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">JURUSAN</span>
+            <span class="about-info-val">Teknologi Informasi — Sistem Informasi</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">IPK</span>
+            <span class="about-info-val">3.8 / 4.0</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">LOKASI</span>
+            <span class="about-info-val">Malang, Jawa Timur</span>
+          </div>
+          <div class="about-info-row">
+            <span class="about-info-label">BAHASA</span>
+            <span class="about-info-val">Indonesia (Native) · English (Intermediate)</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:11px;color:var(--muted);letter-spacing:0.1em;margin-bottom:1rem;font-family:'JetBrains Mono',monospace;">SERTIFIKASI</p>
+        <div class="cert-list">
+          <div class="cert-item">
+            <div class="cert-org">NVIDIA</div>
+            <div class="cert-name">Building Transformer-Based NLP Applications</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-org">NVIDIA</div>
+            <div class="cert-name">Fundamentals of Deep Learning</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-org">AI CERTIFICATION</div>
+            <div class="cert-name">Overview of AI — ML, Deep Learning & Trends (Indonesian)</div>
+          </div>
+        </div>
+
+        <p style="font-size:11px;color:var(--muted);letter-spacing:0.1em;margin:1.75rem 0 1rem;font-family:'JetBrains Mono',monospace;">PENDIDIKAN</p>
+        <div class="cert-item" style="border-left-color: var(--accent2);">
+          <div class="cert-org" style="color:var(--accent2);">2023 — SEKARANG</div>
+          <div class="cert-name">S1 Sistem Informasi — Universitas Merdeka Malang</div>
+        </div>
+        <div class="cert-item" style="margin-top:0.75rem; border-left-color: var(--muted);">
+          <div class="cert-org" style="color:var(--muted);">2020 — 2023</div>
+          <div class="cert-name">SMAK Santa Maria Malang (IPS)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ SKILLS ══ -->
+  <section id="skills">
+    <div class="section-title">
+      <span class="section-num">02</span>
+      <h2>Keahlian</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🔍</div>
+        <h3>SYSTEM & BUSINESS ANALYSIS</h3>
+        <div class="skill-tags">
+          <span class="tag">Requirement Gathering</span>
+          <span class="tag">Use Case Analysis</span>
+          <span class="tag">Business Process</span>
+          <span class="tag">Stakeholder Analysis</span>
+          <span class="tag">Solution Planning</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>DATA ANALYSIS</h3>
+        <div class="skill-tags">
+          <span class="tag green">Excel & Pivot Table</span>
+          <span class="tag green">XLOOKUP</span>
+          <span class="tag green">SQL (Basic)</span>
+          <span class="tag green">Data Cleaning</span>
+          <span class="tag green">Data Visualization</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚛️</div>
+        <h3>FRONTEND DEV</h3>
+        <div class="skill-tags">
+          <span class="tag">React.js</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Vite</span>
+          <span class="tag">Framer Motion</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <h3>BACKEND DEV</h3>
+        <div class="skill-tags">
+          <span class="tag purple">Laravel 12</span>
+          <span class="tag purple">PHP</span>
+          <span class="tag purple">Node.js</span>
+          <span class="tag purple">Express.js</span>
+          <span class="tag purple">PostgreSQL</span>
+          <span class="tag purple">MySQL</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐳</div>
+        <h3>DEVOPS & TOOLS</h3>
+        <div class="skill-tags">
+          <span class="tag">Docker & Compose</span>
+          <span class="tag">Nginx</span>
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">MinIO</span>
+          <span class="tag">Laravel Sail</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>DESIGN & SOFT SKILLS</h3>
+        <div class="skill-tags">
+          <span class="tag green">Figma (UI/UX)</span>
+          <span class="tag green">Kepemimpinan</span>
+          <span class="tag green">Public Speaking</span>
+          <span class="tag green">Critical Thinking</span>
+          <span class="tag green">Problem Solving</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ PROJECTS ══ -->
+  <section id="projects">
+    <div class="section-title">
+      <span class="section-num">03</span>
+      <h2>Proyek</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- PROJECT 1: HandyHouse (Featured) -->
+      <div class="project-card featured">
+        <div class="proj-header">
+          <span class="proj-num">01</span>
+          <span class="proj-badge">FEATURED</span>
+        </div>
+        <h3>HandyHouse — ERP, CRM & HR System</h3>
+        <p>Sistem terintegrasi berbasis arsitektur monorepo microservices yang mengelola modul e-commerce hardware, Supply Chain Management (SCM), CRM, dan Human Resources (HR) dalam satu platform terpadu. Mengimplementasikan API Gateway dengan Nginx dan full containerization via Docker & Docker Compose. Mengintegrasikan MinIO sebagai solusi object storage terdistribusi untuk manajemen aset dan dokumen perusahaan.</p>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech">Next.js</span>
+            <span class="tech">React.js</span>
+            <span class="tech">Node.js</span>
+            <span class="tech">Express.js</span>
+            <span class="tech">TypeScript</span>
+            <span class="tech">PostgreSQL</span>
+            <span class="tech">Docker</span>
+            <span class="tech">Nginx</span>
+            <span class="tech">MinIO</span>
+            <span class="tech">Git & GitHub</span>
+          </div>
+          <div class="project-links">
+            <a class="proj-link github"
+               href="https://github.com/CharlieTulusNainggolan/HandyHouse-Project"
+               target="_blank" rel="noopener noreferrer">
+              <!-- GitHub icon SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              Lihat di GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2: Warga-Verse -->
+      <div class="project-card">
+        <div class="proj-header">
+          <span class="proj-num">02</span>
+        </div>
+        <h3>Warga-Verse — Community Digital Management</h3>
+        <p>Aplikasi manajemen digital berbasis web untuk Rukun Tetangga (RT) yang mencakup fitur transparansi kas, sistem polling warga, dan pelaporan keuangan real-time. Menerapkan unit testing otomatis dengan PHPUnit dan containerisasi via Laravel Sail (Docker).</p>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech">Laravel 12</span>
+            <span class="tech">PHP</span>
+            <span class="tech">MySQL</span>
+            <span class="tech">Tailwind CSS</span>
+            <span class="tech">Vite</span>
+            <span class="tech">Docker</span>
+            <span class="tech">PHPUnit</span>
+          </div>
+          <div class="project-links">
+            <a class="proj-link gitlab"
+               href="https://gitlab.com/CharlieTulusNainggolan"
+               target="_blank" rel="noopener noreferrer">
+              <!-- GitLab icon SVG -->
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M22.65 14.39L12 22.13 1.35 14.39a.84.84 0 0 1-.3-.94l1.22-3.78 2.44-7.51A.42.42 0 0 1 4.82 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.49h8.1l2.44-7.51A.42.42 0 0 1 18.6 2a.43.43 0 0 1 .58 0 .42.42 0 0 1 .11.18l2.44 7.51 1.22 3.78a.84.84 0 0 1-.3.92z"/>
+              </svg>
+              Lihat di GitLab
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 3: To-Do List -->
+      <div class="project-card">
+        <div class="proj-header">
+          <span class="proj-num">03</span>
+        </div>
+        <h3>To-Do List — Personal Task Management App</h3>
+        <p>Platform manajemen tugas personal modern dengan autentikasi aman via Google OAuth 2.0 dan antarmuka beranimasi premium menggunakan Framer Motion. Performa dioptimalkan dengan LocalStorage untuk persistensi data sisi klien tanpa dependensi server.</p>
+        <div class="project-footer">
+          <div class="tech-stack">
+            <span class="tech">React.js</span>
+            <span class="tech">Vite</span>
+            <span class="tech">Tailwind CSS</span>
+            <span class="tech">Google OAuth 2.0</span>
+            <span class="tech">Framer Motion</span>
+            <span class="tech">LocalStorage</span>
+          </div>
+          <div class="project-links">
+            <a class="proj-link github"
+               href="https://github.com/CharlieTulusNainggolan/To-Do-List"
+               target="_blank" rel="noopener noreferrer">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              Lihat di GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ EXPERIENCE ══ -->
+  <section id="experience">
+    <div class="section-title">
+      <span class="section-num">04</span>
+      <h2>Organisasi</h2>
+    </div>
+    <div class="exp-item">
+      <div class="exp-date">SEP 2025 — SEKARANG</div>
+      <div class="exp-content">
+        <h3>Ketua Komisi I / Pengawas BEM</h3>
+        <p class="exp-org">Dewan Perwakilan Mahasiswa (DPM) — Universitas Merdeka Malang</p>
+        <ul>
+          <li>Memimpin dan mengoordinasikan fungsi pengawasan organisasi kemahasiswaan</li>
+          <li>Monitoring dan evaluasi program kerja BEM secara berkala</li>
+          <li>Mengelola aspirasi mahasiswa dan menyampaikan rekomendasi strategis</li>
+          <li>Berkolaborasi lintas pihak untuk tercapainya tujuan organisasi</li>
+          <li>Mengembangkan keterampilan kepemimpinan, komunikasi, dan manajemen organisasi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══ CONTACT ══ -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h2>Mari<br><span style="color:var(--accent2)">Terhubung</span></h2>
+        <p style="margin-top:1rem;">Saya sedang aktif mencari kesempatan magang di bidang System Analysis, Business Analysis, atau Data Analysis. Jangan ragu untuk menghubungi saya kapan saja!</p>
+        <div class="status-badge">
+          <p>STATUS</p>
+          <p>✅ Open for internship — siap mulai kapan saja</p>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:charlietulus2@gmail.com">
+          <div class="contact-link-icon">📧</div>
+          <div class="contact-link-text">
+            <strong>Email</strong>
+            <span>charlietulus2@gmail.com</span>
+          </div>
+        </a>
+        <a class="contact-link" href="https://wa.me/6281343393659" target="_blank" rel="noopener noreferrer">
+          <div class="contact-link-icon">💬</div>
+          <div class="contact-link-text">
+            <strong>WhatsApp</strong>
+            <span>+62 813-4339-3659</span>
+          </div>
+        </a>
+        <a class="contact-link" href="https://linkedin.com/in/charlie-tulus-nainggolan" target="_blank" rel="noopener noreferrer">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-text">
+            <strong>LinkedIn</strong>
+            <span>Charlie Tulus Nainggolan</span>
+          </div>
+        </a>
+        <a class="contact-link" href="https://github.com/CharlieTulusNainggolan" target="_blank" rel="noopener noreferrer">
+          <div class="contact-link-icon">🐙</div>
+          <div class="contact-link-text">
+            <strong>GitHub</strong>
+            <span>CharlieTulusNainggolan</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 Charlie Tulus Nainggolan · Malang, Jawa Timur · Sistem Informasi — Universitas Merdeka Malang</p>
+</footer>
+
+</body>
+</html>
